@@ -1,0 +1,121 @@
+/* =============================================================================
+   MakiForma — TOKENY
+   Jedyne miejsce z wartościami systemu. Strona w `03 - Design/` ładuje ten plik
+   i nie ma własnych kopii wartości.
+
+   Źródło: `03 - Design/docs/visual-direction.md` (v2, 2026-08-20)
+           pomiary 25 zdjęć z `00 - Assets/NOWE ZDJĘCIA`
+   Wersja: v2.0 · 2026-08-20 · paleta czeka na akceptację
+
+   ZASADY
+   1. Nazwa po roli, nie po wyglądzie.
+   2. Każdy token ma komentarz, gdzie występuje.
+   3. Wartość użyta raz zostaje w komponencie, nie tutaj.
+   4. Komponenty dochodzą po designie v0.1, wtedy powstaje `components.css`.
+   ============================================================================= */
+
+:root {
+  /* --- Kolor: tła -------------------------------------------------------- */
+  --c-bg:            #FDFCFA;  /* body, sekcje neutralne. Założenie: dużo bieli
+                                  i przestrzeni. O włos od czystej bieli, bo karton
+                                  przy #FFFFFF wygląda na brudny — ale kartony i tak
+                                  żyją w kadrach ze swoim tłem sceny */
+  --c-bg-alt:        #F6F4EE;  /* co druga sekcja, karty, pola formularza.
+                                  Ledwie odchodzi od bieli: sekcję ma wyróżniać
+                                  przestrzeń, nie kolor tła */
+  --c-bg-band:       #F1EDE4;  /* pas CTA i sekcje sąsiadujące ze sobą, gdy dwie
+                                  jasne powierzchnie by się zlały. Piaskowy, nie
+                                  szary: ma być cieplejszy od --c-bg-alt, ale
+                                  spokojniejszy od kremu sceny */
+  --c-ph:            #EDE8DC;  /* kadr bez zdjęcia: miejsce na render jeszcze nie zrobiony */
+  --c-bg-dark:       #16211D;  /* nori: pasy przerywnikowe i stopka */
+  --c-bg-dark-soft:  #1E2E28;  /* warstwa na ciemnym: karty i pola na pasie nori */
+
+  /* Tła scen fotograficznych. Kadr dostaje tło swojego zdjęcia, inaczej widać
+     prostokąt: krem wobec --c-bg to 1,22:1, noc wobec --c-bg-dark to 1,19:1. */
+  --c-scena-krem:    #F3E2C8;  /* kadr pod serią „krem / bonsai" (packshoty 21:10, 5:4) */
+  --c-scena-noc:     #0A0C0B;  /* kadr pod serią „noc / kuchnia" (kucharz przy ladzie) */
+  --c-scena-biel:    #FFFFFF;  /* karty z packshotami: packshoty mają czysto białe tło
+                                  (reguła /magnific-packshot), a na --c-bg #FDFCFA każdy
+                                  pokazywał własny prostokąt. Karta schodzi do bieli zdjęcia */
+
+  /* --- Kolor: akcenty ---------------------------------------------------- */
+  --c-accent:        #1E6B4F;  /* przyciski, linki, aktywna kotwica. Biały na tym: 6,42:1 */
+  --c-accent-hover:  #17533D;  /* hover przycisku i linku. Biały na tym: 8,97:1 */
+  --c-losos:         #E8836B;  /* TYLKO na ciemnym tle (6,22:1 na nori).
+                                  Na jasnym 2,55:1, zakaz dla tekstu i przycisków */
+  --c-kraft:         #B9885A;  /* kreski i ikony na ciemnym tle (5,30:1 na nori).
+                                  Na jasnym 2,99:1, zakaz dla tekstu.
+                                  Zastąpił złoto z wersji v1: na nowej serii zdjęć
+                                  nie ma złota, kraft jest w co drugim kadrze */
+
+  /* --- Kolor: tekst ------------------------------------------------------ */
+  --c-text:              #16211D;  /* treść i nagłówki na jasnym tle */
+  --c-text-soft:         #5C6660;  /* podpisy, parametry. Na kremie 4,69:1, ostatni bezpieczny */
+  --c-text-on-accent:    #FFFFFF;  /* napis na przycisku głównym */
+  --c-text-on-dark:      #FBFAF7;  /* treść na pasie nori i na scenie nocnej */
+  --c-text-on-dark-soft: #A8B2AC;  /* podpisy na ciemnym (7,59:1 na nori).
+                                      NIE używać na zdjęciu: pod odblaskiem spada do 1,7:1 */
+
+  /* --- Kolor: linie i stany ---------------------------------------------- */
+  --c-line:          #E3DDD0;  /* separatory, obramowania kart, siatka tabel */
+  --c-line-soft:     #EFEBE2;  /* obramowanie kart katalogu: przy #E3DDD0 dziesięć
+                                  ramek obok siebie robiło z siatki kratkę */
+  --c-line-dark:     #2C3B34;  /* separatory wewnątrz pasa nori */
+  --c-line-on-dark:  rgba(251, 250, 247, .38);  /* obrys przycisku pobocznego na ciemnym */
+  --c-error:         #A4382A;  /* komunikat walidacji formularza */
+  --c-focus:         #1E6B4F;  /* obrys :focus-visible, ten sam co akcent */
+
+  /* --- Typografia -------------------------------------------------------- */
+  --f-head: 'Outfit', system-ui, -apple-system, sans-serif;  /* nagłówki */
+  --f-body: 'Inter', system-ui, -apple-system, sans-serif;   /* treść i interfejs */
+  --f-pismo: 'adelia', 'Caveat', cursive;  /* odręczne akcenty w hero. Adelia
+                                     self-hostowana, Caveat łata brakujące ąćęńśźż */
+  --c-pismo: #CF2A1E;             /* czerwień odręcznego dopisku, z makiety hero.
+                                     TYLKO ten akcent, nigdy tekst interfejsu:
+                                     nawiązuje do czerwonego koła na nadruku MOKU */
+
+  --fs-h1:    clamp(2.125rem, 1.1rem + 4.4vw, 3.5rem);    /* 34 → 56 */
+  --fs-h2:    clamp(1.6875rem, 1.2rem + 2.1vw, 2.5rem);   /* 27 → 40 */
+  --fs-h3:    clamp(1.3125rem, 1.1rem + 0.9vw, 1.625rem); /* 21 → 26 */
+  --fs-lead:  clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);    /* lead pod nagłówkiem */
+  --fs-body:  1.0625rem;   /* 17px, celowo nie 16: opisy kategorii są długie */
+  --fs-small: 0.875rem;    /* 14px: podpisy, nota w stopce */
+  --fs-spec:  0.8125rem;   /* 13px: parametr techniczny, wersaliki */
+
+  --lh-h1: 1.05;
+  --lh-h2: 1.15;
+  --lh-h3: 1.25;
+  --lh-body: 1.6;
+  --ls-spec: 0.06em;       /* rozstrzelenie parametru technicznego */
+
+  /* --- Przestrzeń: jedna skala oparta na 4 px ---------------------------- */
+  --s-1: 0.25rem;   /* 4  */
+  --s-2: 0.5rem;    /* 8  */
+  --s-3: 0.75rem;   /* 12 */
+  --s-4: 1rem;      /* 16 */
+  --s-5: 1.5rem;    /* 24 */
+  --s-6: 2rem;      /* 32 */
+  --s-7: 3rem;      /* 48 */
+  --s-8: 4rem;      /* 64 */
+  --s-9: 6rem;      /* 96 */
+
+  --s-10: 8rem;     /* 128 */
+
+  /* Pion między sekcjami i margines boczny rosną z szerokością okna.
+     Wartości sprawdzone na wireframie v0.1, nie dobierane od nowa. */
+  --sekcja: 96px;
+  --marg:   20px;
+
+  /* --- Układ ------------------------------------------------------------- */
+  --kolumna:  1400px;  /* maksymalna szerokość treści, ustalona na wireframie v0.1 */
+  --tekst:    62ch;    /* maksymalna długość wiersza w akapicie */
+
+  --r:       8px;   /* przyciski, pola, kontrolki */
+  --r-duze: 16px;   /* karty i kadry zdjęć */
+
+  --przejscie: 160ms ease;  /* hover przycisków, kart i linków */
+}
+
+@media (min-width: 760px)  { :root { --sekcja: 128px; --marg: 40px; } }
+@media (min-width: 1180px) { :root { --sekcja: 160px; --marg: 56px; } }

@@ -1,0 +1,33 @@
+/* =============================================================================
+   MakiForma — FONTY
+   Ładowany PIERWSZY, przed tokens.css. Kolejność jest wiążąca.
+
+   ŚCIEŻKA: Google Fonts, licencja SIL OFL.
+   Adobe Fonts świadomie odpuszczone: link Web Projectu wisi na koncie PROUP,
+   więc przy oddaniu deweloper klienta musiałby zakładać własny. Przy OFL
+   nie dziedziczy po nas żadnego zobowiązania. Do README paczki w etapie 8.
+
+   Kroje: Outfit (nagłówki, geometryczny grotesk bliski logotypowi),
+          Inter (treść i interfejs, czytelny w gramaturach i polach formularza).
+   Podzbiór latin-ext jest obowiązkowy: strona idzie w wersjach PL, EN i DE.
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap&subset=latin,latin-ext');
+
+/* Adelia z makiety hero (43:13732), self-hosting z pliku systemowego.
+   METADANE LICENCYJNE: „Copyright (c) 2022 by Carroline. All rights reserved.
+   adelia is a trademark of Carroline." — to wygląda na font darmowy do użytku
+   osobistego. PRZED WDROŻENIEM produkcyjnym potwierdzić licencję komercyjną.
+   UWAGA: krój nie ma ąćęńśźż — „buduje apetyt." ich nie używa, ale każdy nowy
+   napis tym krojem trzeba sprawdzić; brakujące znaki przejmuje Caveat. */
+@font-face {
+  font-family: "adelia";
+  src: url("fonty/adelia.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Przy oddaniu deweloperowi: zamień @import na <link rel="preconnect"> plus
+   <link rel="stylesheet"> w <head>. @import blokuje render o jeden RTT dłużej,
+   a tutaj kosztuje mniej niż plątanina linków w ośmiu plikach prototypu. */

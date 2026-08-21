@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zestaw próbny | MakiForma</title>
+<meta name="description" content="Zamówienie zestawu próbnego.">
+<link rel="stylesheet" href="styleguide/fonts.css">
+<link rel="stylesheet" href="styleguide/tokens.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<!-- HEAD:start -->
+  <header class="head">
+    <div class="wrap head__in">
+      <a class="head__logo" href="index.html" aria-label="MakiForma, strona główna">
+        <img src="assets/logo-ink.svg" alt="MakiForma" width="990" height="145">
+      </a>
+      <nav class="nav" aria-label="Nawigacja główna">
+        <a href="opakowania.html">Opakowania</a>
+        <a href="personalizacja.html">Personalizacja</a>
+        <a href="probki.html" aria-current="page">Próbki</a>
+        <a href="o-nas.html">O&nbsp;nas</a>
+        <a href="wycena.html">Kontakt</a>
+      </nav>
+      <div class="head__akcje">
+        <a class="head__tel" href="tel:+48123456789">+48 123 456 789</a>
+        <details class="lang">
+          <summary aria-label="Zmień język strony">PL</summary>
+          <ul class="lang__lista">
+            <li><a href="#" aria-current="page">Polski</a></li>
+            <li><a href="#">English</a></li>
+            <li><a href="#">Deutsch</a></li>
+          </ul>
+        </details>
+        <a class="btn btn--maly head__cta" href="wycena.html">Wyceń projekt</a>
+        <button class="burger" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      </div>
+    </div>
+    <div class="menu" id="menu">
+      <div class="wrap">
+        <ul>
+        <li><a href="opakowania.html">Opakowania</a></li>
+        <li><a href="personalizacja.html">Personalizacja</a></li>
+        <li><a href="probki.html">Próbki</a></li>
+        <li><a href="o-nas.html">O&nbsp;nas</a></li>
+        <li><a href="wycena.html">Kontakt</a></li>
+        </ul>
+        <a class="btn btn--blok" href="wycena.html">Wyceń projekt</a>
+        <p class="mala">+48 123 456 789 · kontakt@makiforma.pl</p>
+      </div>
+    </div>
+  </header>
+  <!-- HEAD:end -->
+
+<main>
+
+  <section class="hero-foto hero-foto--podstrona hero-foto--ciemny">
+    <img class="hero-foto__tlo" src="assets/img/hero-probki-lada.webp"
+         srcset="assets/img/hero-probki-lada-1000.webp 1000w, assets/img/hero-probki-lada.webp 2000w"
+         sizes="100vw" width="2000" height="857" fetchpriority="high"
+         alt="Otwarte pudełko na zestaw i wąskie pudełko MOMU na ciemnej ladzie">
+    <div class="wrap hero-foto__tresc">
+      <h1 class="hero-foto__naglowek">Zamów<br>zestaw próbny</h1>
+    </div>
+  </section>
+
+  <section class="sekcja">
+    <div class="wrap">
+      <div class="dwie">
+        <div>
+          <h2 class="t-xl">Co jest w&nbsp;zestawie</h2>
+        </div>
+      </div>
+      <dl class="spec">
+        <div><dt>Próbki kartonu</dt><dd>Karton lity, powlekany i&nbsp;kraft, w&nbsp;gramaturach 250–450 g/m².</dd></div>
+        <div><dt>Przykłady uszlachetnień</dt><dd>Hot-stamping, lakier UV, lakier UV wypukły, folie matowa, błyszcząca i&nbsp;soft-touch.</dd></div>
+        <div><dt>Gotowe opakowanie</dt><dd>Jedno złożone pudełko na sushi, żeby ocenić konstrukcję i&nbsp;zamknięcie.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sekcja sekcja--alt">
+    <div class="wrap">
+      <div class="split">
+        <div class="split__tekst">
+          <h2 class="t-xl">Dane do wysyłki</h2>
+          <hr class="linia" style="margin:var(--s-7) 0">
+          <h2 class="t-m">Nie chcesz czekać na przesyłkę?</h2>
+          <p>Jeśli potrzebujesz wyceny już teraz, wyślij zdjęcie opakowania. Próbki możesz zamówić równolegle.</p>
+          <a class="link" href="wycena.html">Przejdź do wyceny</a>
+        </div>
+
+        <form class="wizard" onsubmit="return false">
+          <div class="pole-2">
+            <label class="pole"><span>Imię i&nbsp;nazwisko</span><input class="input" type="text"></label>
+            <label class="pole"><span>Nazwa lokalu</span><input class="input" type="text"></label>
+          </div>
+          <div class="pole-2" style="margin-top:var(--s-5)">
+            <label class="pole"><span>E-mail</span><input class="input" type="email"></label>
+            <label class="pole"><span>Telefon</span><input class="input" type="tel"></label>
+          </div>
+          <label class="pole" style="margin-top:var(--s-5)"><span>Ulica i&nbsp;numer</span><input class="input" type="text" autocomplete="street-address"></label>
+          <div class="pole-2" style="margin-top:var(--s-5)">
+            <label class="pole"><span>Kod pocztowy</span><input class="input" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00-000"></label>
+            <label class="pole"><span>Miejscowość</span><input class="input" type="text" autocomplete="address-level2"></label>
+          </div>
+
+          <div style="margin-top:var(--s-6)">
+            <label class="zgoda">
+              <input type="checkbox">
+              <span>Zgadzam się na przetwarzanie danych w&nbsp;celu wysyłki zestawu próbnego.</span>
+            </label>
+          </div>
+          <p class="mala" style="margin-top:var(--s-4)">Administratorem danych jest MakiForma. Dane podane w&nbsp;formularzu przetwarzamy wyłącznie po to, żeby wysłać zestaw próbny.</p>
+
+          <div class="form-nav">
+            <button class="btn btn--blok" type="submit">Zamów próbkę</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOT:start -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__gora">
+        <div>
+          <div class="foot__logo"><img src="assets/logo-white.svg" alt="MakiForma" width="990" height="145"></div>
+          <p class="foot__opis">Polski producent personalizowanych opakowań kartonowych na sushi. Obsługujemy lokale i&nbsp;sieci w&nbsp;Polsce oraz w&nbsp;Europie.</p>
+          <p class="mala" style="margin-top:var(--s-5)">Production powered by Forpa</p>
+        </div>
+        <div>
+          <h3>Opakowania</h3>
+          <ul>
+            <li><a href="opakowania-zestawy.html">Na zestawy sushi</a></li>
+            <li><a href="opakowania-rolki.html">Na rolki sushi</a></li>
+            <li><a href="opakowania-premium.html">Premium</a></li>
+            <li><a href="opakowania-delivery.html">Delivery i&nbsp;take away</a></li>
+            <li><a href="opakowania-catering.html">Cateringowe</a></li>
+            <li><a href="opakowania.html">Wszystkie kategorie</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Kontakt</h3>
+          <ul>
+            <li><a href="tel:+48123456789">+48 123 456 789</a></li>
+            <li><a href="mailto:kontakt@makiforma.pl">kontakt@makiforma.pl</a></li>
+            <li><span class="mala">pon.–pt. 8:00–16:00</span></li>
+            <li><a href="wycena.html">Formularz wyceny</a></li>
+            <li><a href="probki.html">Zamów próbkę</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot__dol">
+        <span>© 2026 MakiForma</span>
+        <span>MakiForma · ul. Przykładowa 1, 00-000 Miasto · NIP 000-000-00-00</span>
+        <a href="polityka-prywatnosci.html">Polityka prywatności i&nbsp;cookies</a>
+      </div>
+    </div>
+  </footer>
+  <!-- FOOT:end -->
+
+<script src="assets/app.js"></script>
+</body>
+</html>

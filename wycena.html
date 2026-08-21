@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontakt i&nbsp;wycena | MakiForma</title>
+<meta name="description" content="Formularz wyceny w trzech krokach.">
+<link rel="stylesheet" href="styleguide/fonts.css">
+<link rel="stylesheet" href="styleguide/tokens.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<!-- HEAD:start -->
+  <header class="head">
+    <div class="wrap head__in">
+      <a class="head__logo" href="index.html" aria-label="MakiForma, strona główna">
+        <img src="assets/logo-ink.svg" alt="MakiForma" width="990" height="145">
+      </a>
+      <nav class="nav" aria-label="Nawigacja główna">
+        <a href="opakowania.html">Opakowania</a>
+        <a href="personalizacja.html">Personalizacja</a>
+        <a href="probki.html">Próbki</a>
+        <a href="o-nas.html">O&nbsp;nas</a>
+        <a href="wycena.html" aria-current="page">Kontakt</a>
+      </nav>
+      <div class="head__akcje">
+        <a class="head__tel" href="tel:+48123456789">+48 123 456 789</a>
+        <details class="lang">
+          <summary aria-label="Zmień język strony">PL</summary>
+          <ul class="lang__lista">
+            <li><a href="#" aria-current="page">Polski</a></li>
+            <li><a href="#">English</a></li>
+            <li><a href="#">Deutsch</a></li>
+          </ul>
+        </details>
+        <a class="btn btn--maly head__cta" href="wycena.html">Wyceń projekt</a>
+        <button class="burger" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+      </div>
+    </div>
+    <div class="menu" id="menu">
+      <div class="wrap">
+        <ul>
+        <li><a href="opakowania.html">Opakowania</a></li>
+        <li><a href="personalizacja.html">Personalizacja</a></li>
+        <li><a href="probki.html">Próbki</a></li>
+        <li><a href="o-nas.html">O&nbsp;nas</a></li>
+        <li><a href="wycena.html">Kontakt</a></li>
+        </ul>
+        <a class="btn btn--blok" href="wycena.html">Wyceń projekt</a>
+        <p class="mala">+48 123 456 789 · kontakt@makiforma.pl</p>
+      </div>
+    </div>
+  </header>
+  <!-- HEAD:end -->
+
+<main>
+
+  <section class="hero" style="padding-bottom:var(--s-8)">
+    <div class="wrap">
+      <div class="split">
+        <div class="split__tekst">
+          <h1 class="t-xl" style="max-width:24ch">Prześlij zdjęcie opakowania albo opisz swój pomysł</h1>
+          <p class="lead" style="margin-top:var(--s-5)">Sprawdzimy, jak możemy go wyprodukować, i&nbsp;przygotujemy wycenę. Wstępna odpowiedź wraca w&nbsp;24 godziny.</p>
+        </div>
+        <div class="panel-boczny kontakt-karta">
+          <p class="kontakt-karta__etykieta">Kontakt</p>
+          <a class="kontakt-karta__tel" href="tel:+48123456789">+48 123 456 789</a>
+          <p><a href="mailto:kontakt@makiforma.pl">kontakt@makiforma.pl</a></p>
+          <p class="mala">pon.–pt. 8:00–16:00</p>
+          <p class="mala">Wstępna odpowiedź wraca w&nbsp;24 godziny, także z&nbsp;formularza.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sekcja sekcja--gora0" id="formularz">
+    <div class="wrap">
+      <div class="split">
+
+        <!-- Formularz: trzy kroki, jeden widoczny naraz —————————— -->
+        <div class="wizard">
+          <div class="postep" aria-hidden="true">
+            <span data-aktywny></span><span></span><span></span>
+          </div>
+
+          <div data-krok="1">
+            <p class="postep-opis">Krok 1 z&nbsp;3 · Pokaż, o&nbsp;co chodzi</p>
+            <h2 class="t-m">Pokaż, o&nbsp;co chodzi</h2>
+            <p class="mala" style="margin-top:var(--s-3)">Wystarczy jedna rzecz: zdjęcie, opis albo link. Resztę ustalimy w&nbsp;rozmowie.</p>
+
+            <div class="drop" style="margin-top:var(--s-6)">
+              <b>Wybierz pliki</b>
+              <span>JPG, PNG, HEIC albo PDF, do 15 MB. Do pięciu plików. Na telefonie możesz zrobić zdjęcie od razu z&nbsp;aparatu.</span>
+            </div>
+
+            <label class="pole" style="margin-top:var(--s-5)">
+              <span>Albo opisz, czego potrzebujesz</span>
+              <textarea class="textarea"></textarea>
+            </label>
+            <label class="pole">
+              <span>Link do inspiracji</span>
+              <input class="input" type="url" placeholder="https://">
+            </label>
+
+            <div class="form-nav">
+              <button class="btn" type="button" data-idz="2">Dalej: parametry</button>
+            </div>
+          </div>
+
+          <div data-krok="2" hidden>
+            <p class="postep-opis">Krok 2 z&nbsp;3 · Parametry</p>
+            <h2 class="t-m">Parametry opakowania</h2>
+            <p class="mala" style="margin-top:var(--s-3)">Nie musisz wiedzieć wszystkiego. Wypełnij to, co znasz.</p>
+
+            <label class="pole" style="margin-top:var(--s-6)">
+              <span>Rodzaj opakowania</span>
+              <select class="select">
+                <option>Jeszcze nie wiem</option>
+                <option>Na zestawy sushi</option>
+                <option>Na rolki sushi</option>
+                <option>Premium</option>
+                <option>Delivery i&nbsp;take away</option>
+                <option>Cateringowe i&nbsp;eventowe</option>
+                <option>Lunchowe, grab &amp; go</option>
+                <option>Banderole brandingowe</option>
+                <option>Wkładki i&nbsp;elementy wewnętrzne</option>
+                <option>Sezonowe i&nbsp;limitowane</option>
+                <option>Dodatki brandingowe</option>
+              </select>
+            </label>
+            <div class="pole-2" style="margin-top:var(--s-5)">
+              <label class="pole">
+                <span>Nakład</span>
+                <select class="select">
+                  <option>500 szt.</option><option>1000 szt.</option><option>2000 szt.</option>
+                  <option>5000 szt.</option><option>Więcej</option><option>Nie wiem</option>
+                </select>
+              </label>
+              <label class="pole">
+                <span>Przeznaczenie</span>
+                <select class="select">
+                  <option>Delivery</option><option>Na wynos</option>
+                  <option>Premium</option><option>Catering</option>
+                </select>
+              </label>
+            </div>
+            <div class="pole-2" style="margin-top:var(--s-5)">
+              <label class="pole"><span>Wymiary, jeśli znasz</span><input class="input" type="text"></label>
+              <label class="pole"><span>Na kiedy potrzebujesz opakowań</span><input class="input" type="text"></label>
+            </div>
+
+            <div class="form-nav">
+              <button class="btn" type="button" data-idz="3">Dalej: kontakt</button>
+              <button class="btn btn--ghost" type="button" data-idz="1">Wstecz</button>
+            </div>
+          </div>
+
+          <div data-krok="3" hidden>
+            <p class="postep-opis">Krok 3 z&nbsp;3 · Kontakt</p>
+            <h2 class="t-m">Gdzie odesłać wycenę</h2>
+
+            <div class="pole-2" style="margin-top:var(--s-6)">
+              <label class="pole"><span>Imię i&nbsp;nazwisko (wymagane)</span><input class="input" type="text" required></label>
+              <label class="pole"><span>Nazwa lokalu lub firmy</span><input class="input" type="text"></label>
+            </div>
+            <div class="pole-2" style="margin-top:var(--s-5)">
+              <label class="pole"><span>E-mail (wymagane)</span><input class="input" type="email" required></label>
+              <label class="pole"><span>Telefon</span><input class="input" type="tel"></label>
+            </div>
+            <div class="pole-2" style="margin-top:var(--s-5)">
+              <label class="pole">
+                <span>Kraj</span>
+                <select class="select">
+                  <option>Polska</option><option>Niemcy</option><option>Austria</option>
+                  <option>Czechy</option><option>Inny kraj UE</option><option>Poza UE</option>
+                </select>
+              </label>
+              <label class="pole">
+                <span>Masz gotowy projekt graficzny?</span>
+                <select class="select">
+                  <option>Mam logo</option>
+                  <option>Mam pełny projekt opakowania</option>
+                  <option>Nie mam nic, potrzebuję pomocy</option>
+                </select>
+              </label>
+            </div>
+
+            <div style="margin-top:var(--s-6)">
+              <label class="zgoda">
+                <input type="checkbox" required>
+                <span>Zgadzam się na przetwarzanie moich danych w&nbsp;celu przygotowania i&nbsp;przesłania oferty. (wymagane)</span>
+              </label>
+              <label class="zgoda">
+                <input type="checkbox">
+                <span>Chcę dostawać informacje o&nbsp;nowych rozwiązaniach i&nbsp;seriach sezonowych. Zgoda dobrowolna, mogę ją cofnąć w&nbsp;każdej chwili.</span>
+              </label>
+            </div>
+            <p class="mala" style="margin-top:var(--s-4)">Administratorem danych jest MakiForma. Dane z&nbsp;formularza przetwarzamy po to, żeby przygotować i&nbsp;przesłać ofertę. Szczegóły w <a href="polityka-prywatnosci.html">polityce prywatności</a>.</p>
+
+            <div class="form-nav">
+              <button class="btn" type="button" data-wyslij>Wyślij zapytanie</button>
+              <button class="btn btn--ghost" type="button" data-idz="2">Wstecz</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolumna pomocnicza —————————————————————————————————— -->
+        <aside class="stos-l">
+          <div>
+            <h2 class="t-m">Co warto przesłać</h2>
+            <ul class="lista" style="margin-top:var(--s-4)">
+              <li>Zdjęcie obecnego opakowania</li>
+              <li>Zdjęcie opakowania, które jest inspiracją</li>
+              <li>Link do inspiracji z&nbsp;internetu albo social mediów</li>
+              <li>Wymiary pudełka, jeśli są znane</li>
+              <li>Oczekiwaną ilość</li>
+              <li>Logo albo projekt graficzny</li>
+              <li>Przeznaczenie: delivery, take away, premium, catering</li>
+              <li>Termin, w&nbsp;którym opakowania będą potrzebne</li>
+            </ul>
+            <p class="mala" style="margin-top:var(--s-4)">Nie musisz znać technologii produkcji. Od tego jesteśmy my.</p>
+          </div>
+
+          <div class="panel-boczny">
+            <h2 class="t-m">Masz już dostawcę?</h2>
+            <p class="mala" style="margin-top:var(--s-3)">To dobry punkt wyjścia. Prześlij nam obecne opakowanie, a&nbsp;sprawdzimy, czy jako producent możemy zaproponować rozwiązanie lepsze wizualnie, praktyczniejsze albo korzystniejsze cenowo.</p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Ekran po wysłaniu: ukryty, pokazuje się po kliknięciu „Wyślij zapytanie" -->
+  <section class="sekcja sekcja--alt" id="potwierdzenie" hidden>
+    <div class="wrap">
+      <div class="split">
+        <div class="split__tekst">
+          <h2 class="t-xl">Mamy Twoje zapytanie</h2>
+          <p class="lead">Wstępną odpowiedź odsyłamy w&nbsp;ciągu 24 godzin roboczych. Jeśli przysłałeś zdjęcia, sprawdzimy najpierw możliwości produkcyjne i&nbsp;dopiero potem podamy cenę.</p>
+          <a class="link" href="index.html">Wróć na stronę główną</a>
+        </div>
+        <dl class="spec">
+          <div><dt>Numer zgłoszenia</dt><dd>MF-2026-0001</dd></div>
+          <div><dt>Co dalej</dt><dd>Wstępna wycena w&nbsp;24 godziny, wizualizacja w&nbsp;2–5 dni roboczych od ustalenia szczegółów.</dd></div>
+          <div><dt>Sprawa pilna?</dt><dd>+48 123 456 789</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOT:start -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__gora">
+        <div>
+          <div class="foot__logo"><img src="assets/logo-white.svg" alt="MakiForma" width="990" height="145"></div>
+          <p class="foot__opis">Polski producent personalizowanych opakowań kartonowych na sushi. Obsługujemy lokale i&nbsp;sieci w&nbsp;Polsce oraz w&nbsp;Europie.</p>
+          <p class="mala" style="margin-top:var(--s-5)">Production powered by Forpa</p>
+        </div>
+        <div>
+          <h3>Opakowania</h3>
+          <ul>
+            <li><a href="opakowania-zestawy.html">Na zestawy sushi</a></li>
+            <li><a href="opakowania-rolki.html">Na rolki sushi</a></li>
+            <li><a href="opakowania-premium.html">Premium</a></li>
+            <li><a href="opakowania-delivery.html">Delivery i&nbsp;take away</a></li>
+            <li><a href="opakowania-catering.html">Cateringowe</a></li>
+            <li><a href="opakowania.html">Wszystkie kategorie</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Kontakt</h3>
+          <ul>
+            <li><a href="tel:+48123456789">+48 123 456 789</a></li>
+            <li><a href="mailto:kontakt@makiforma.pl">kontakt@makiforma.pl</a></li>
+            <li><span class="mala">pon.–pt. 8:00–16:00</span></li>
+            <li><a href="wycena.html">Formularz wyceny</a></li>
+            <li><a href="probki.html">Zamów próbkę</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot__dol">
+        <span>© 2026 MakiForma</span>
+        <span>MakiForma · ul. Przykładowa 1, 00-000 Miasto · NIP 000-000-00-00</span>
+        <a href="polityka-prywatnosci.html">Polityka prywatności i&nbsp;cookies</a>
+      </div>
+    </div>
+  </footer>
+  <!-- FOOT:end -->
+
+<script src="assets/app.js"></script>
+</body>
+</html>

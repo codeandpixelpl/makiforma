@@ -1,0 +1,13 @@
+# System
+.DS_Store
+Thumbs.db
+._*
+
+# Lokalne
+*.log
+.env
+.env.local
+
+# Narzędzia edytorów
+.vscode/
+.idea/
