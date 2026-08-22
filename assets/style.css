@@ -190,7 +190,10 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 .btn--blok { width: 100%; }
 
 .btn-grupa { display: flex; flex-wrap: wrap; gap: var(--s-3); }
-@media (max-width: 520px) { .btn-grupa .btn { width: 100%; } }
+/* Przyciski w grupie schodzą na pełną szerokość na całym paśmie dotykowym,
+   nie dopiero od 520 px. Przy dwóch w rzędzie na 600 px każdy dostawał połowę
+   i "Zamów próbkę opakowania" łamało się na dwa wiersze. */
+@media (max-width: 767px) { .btn-grupa { flex-direction: column; } .btn-grupa .btn { width: 100%; } }
 
 /* Link tekstowy ze strzałką */
 .link {
@@ -201,6 +204,12 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 }
 .link:hover { border-color: var(--c-text); }
 .link::after { content: "→"; }
+/* Pole trafienia odsyłacza ma 27 px wysokości, na dotyku to za mało.
+   Powiększamy je warstwą, nie paddingiem, żeby kreska została na miejscu. */
+@media (max-width: 619px) {
+  .link { position: relative; }
+  .link::before { content: ""; position: absolute; inset: -10px 0; }
+}
 
 /* ——— Nagłówek strony ——————————————————————————————————————— */
 
@@ -264,24 +273,95 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 .lang__lista a:hover { background: var(--c-bg-alt); color: var(--c-text); }
 .lang__lista a[aria-current] { color: var(--c-text); }
 
+/* Przycisk menu wprost z makiety 65:15702: kwadrat 50 px, obrys 1 px,
+   promień 8 px, w środku trzy kreski 23,06 x 1,708 px z przerwą 7,687 px.
+   Makieta ma obrys #1C1C1A, w tokenach najbliżej jest --c-text (#16211D);
+   trzymamy token, bo styleguide jest źródłem prawdy. */
 .burger {
-  border: 1px solid var(--c-line); border-radius: var(--r);
+  width: 50px; height: 50px; padding: 0;
+  border: 1px solid var(--c-text); border-radius: var(--r);
   background: transparent; color: var(--c-text);
-  min-height: 42px; padding: 0 var(--s-4);
-  font-family: inherit; font-size: 14px; cursor: pointer;
+  display: grid; place-items: center;
+  cursor: pointer;
+}
+.burger__ikona {
+  display: grid; gap: 7.687px; width: 23.063px;
+}
+.burger__ikona i {
+  display: block; height: 1.708px; background: currentColor;
+  transition: transform .2s ease, opacity .15s ease;
+}
+/* Po otwarciu trzy kreski składają się w X: skrajne zjeżdżają do środka
+   i krzyżują, środkowa gaśnie. Krok to kreska plus przerwa, 9,395 px. */
+.burger[aria-expanded="true"] .burger__ikona i:nth-child(1) { transform: translateY(9.395px) rotate(45deg); }
+.burger[aria-expanded="true"] .burger__ikona i:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] .burger__ikona i:nth-child(3) { transform: translateY(-9.395px) rotate(-45deg); }
+@media (prefers-reduced-motion: reduce) {
+  .burger__ikona i { transition: none; }
 }
 
-.menu { display: none; border-top: 1px solid var(--c-line); background: var(--c-bg); }
-.menu[data-otwarte] { display: block; }
-.menu ul { list-style: none; margin: 0; padding: var(--s-4) 0; }
-.menu a { display: block; padding: var(--s-3) 0; text-decoration: none; font-size: 18px; }
-.menu .btn { margin: var(--s-4) 0 var(--s-5); }
+/* Menu na dotyku jest pełnoekranową warstwą pod nagłówkiem. Wcześniej stało
+   w toku strony: kończyło się w połowie ekranu, spod spodu wystawał hero,
+   tło dawało się przewijać, a menu nie zamykało się ani odsyłaczem, ani
+   klawiszem. */
+.menu {
+  position: fixed; inset: 72px 0 0; z-index: 39;
+  display: flex; flex-direction: column;
+  background: var(--c-bg);
+  overflow-y: auto; overscroll-behavior: contain;
+  opacity: 0; visibility: hidden; translate: 0 -6px;
+  transition: opacity .18s ease, translate .18s ease, visibility 0s .18s;
+}
+.menu[data-otwarte] {
+  opacity: 1; visibility: visible; translate: 0 0;
+  transition: opacity .18s ease, translate .18s ease;
+}
+.menu > .wrap {
+  display: flex; flex-direction: column; flex: 1;
+  padding-top: var(--s-5);
+  padding-bottom: max(var(--s-6), env(safe-area-inset-bottom));
+}
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu li + li { border-top: 1px solid var(--c-line); }
+.menu li a {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 60px; padding: 0;
+  font-family: var(--f-head); font-size: 21px; letter-spacing: -.02em;
+  color: var(--c-text); text-decoration: none;
+}
+.menu li a::after { content: "→"; font-size: 17px; color: var(--c-text-soft); }
+.menu li a[aria-current] { color: var(--c-accent); }
+/* Wezwanie i kontakt siadają na dole warstwy, nie w połowie listy. */
+.menu .btn { margin: auto 0 var(--s-4); }
+.menu .mala { margin: 0; color: var(--c-text-soft); }
+/* Wybór języka schodzi z paska do menu: makieta 65:15645 zostawia w nagłówku
+   tylko logo i przycisk. Osobne odsyłacze zamiast <li>, żeby nie złapały
+   stylu pozycji nawigacji. */
+.menu__jezyki {
+  display: flex; gap: var(--s-5);
+  margin-top: var(--s-5); padding-top: var(--s-4);
+  border-top: 1px solid var(--c-line);
+}
+.menu__jezyki a {
+  display: inline-block; padding: 8px 0; margin: -8px 0;
+  font-size: 15px; color: var(--c-text-soft); text-decoration: none;
+}
+.menu__jezyki a[aria-current] { color: var(--c-text); }
+
+/* Nagłówek strony głównej jest przezroczysty, bo leży na kadrze hero.
+   Przy otwartym menu musi dostać tło, inaczej lista przebija przez logo. */
+body[data-menu] .head { background: var(--c-bg); border-bottom: 1px solid var(--c-line); }
+body[data-menu] { overflow: hidden; }
+
+/* Poniżej progu nawigacji przełącznik języka nie stoi już w pasku. */
+@media (max-width: 1079.98px) { .lang { display: none; } }
 
 @media (min-width: 1080px) {
   .nav { display: flex; }
   .head__akcje { margin-left: 0; }
   .head__tel, .head__cta { display: inline-flex; }
   .burger { display: none; }
+  .menu { display: none; }
 }
 
 /* ——— Hero ——————————————————————————————————————————————————— */
@@ -336,6 +416,66 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
   .hero-foto { min-height: min(46.9vw, 820px); }  /* proporcja zdjęcia 2,1:1, sufit dla 4K */
 }
 .hero-foto__tresc { padding-top: calc(72px + var(--s-6)); padding-bottom: var(--s-8); }
+/* Wąski ekran ma własny kadr pionowy 4:5 (patrz <picture> w index.html).
+   Zdjęcie jest tłem całej sekcji, tak samo jak w szerokim oknie, a nagłówek
+   i przycisk stoją na nim od góry. Wcześniej zdjęcie było zwykłym blokiem
+   w toku i tekst spadał pod nie, na sam dół pierwszego ekranu. */
+/* Tylko hero strony głównej: ono jedno ma kadr pionowy w <picture>. Hero
+   podstron (--podstrona) zostaje przy kadrze poziomym 2,6:1, bo nie ma
+   wariantu pionowego, a cover w oknie 4:5 ucinał mu 70% szerokości. */
+@media (max-width: 767px) {
+  /* Wysokość bierze się z proporcji kadru (4:5 to 125% szerokości), więc
+     zdjęcie wchodzi w sekcję w całości. Sztywne 82svh kadrowało je o 30%
+     wszerz i ucinało pudełko z obu stron. */
+  /* Wysokość z proporcji kadru mobilnego (3488x4415, czyli 126,6% szerokości),
+     więc zdjęcie wchodzi w sekcję w całości, bez przycięcia. */
+  .hero-foto:not(.hero-foto--podstrona) { min-height: min(126.6vw, 760px); display: flex; flex-direction: column; }
+  .hero-foto:not(.hero-foto--podstrona) .hero-foto__tlo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: 50% 50%;
+    aspect-ratio: 3488 / 4415;
+  }
+  /* Bez rozjaśniacza pod tekstem: kadr pionowy ma u góry tyle wolnego tła,
+     że nagłówek stoi na czystym kremie i nic go nie musi podkładać. */
+  .hero-foto:not(.hero-foto--podstrona) .hero-foto__tresc {
+    position: relative; z-index: 2;
+    padding-top: 72px; padding-bottom: 0;   /* góra: tyle, ile ma nagłówek strony */
+  }
+  /* Wartości wprost z makiety 65:15177, zdjętej przy 354 px, przeliczone na
+     jednostki względne: 37,902 px = 10,707vw, pismo 26,64 px = 0,703em
+     nagłówka, koło 86,78 px = 24,515vw, jego napis 11,944 px = 3,374vw.
+     Interlinia 1,04 i światło -0,035em zgadzały się już wcześniej. */
+  .hero-foto:not(.hero-foto--podstrona) .hero-foto__naglowek {
+    font-size: 10.707vw;
+    /* 324 px przy 354 px szerokości okna. Kolumna tekstu ma 314 px, więc
+       wiersz wychodzi 10 px poza prawy margines i dzięki temu "zasługuje na"
+       zostaje w jednym wierszu, tak jak w makiecie 65:15182. */
+    max-width: none; width: 91.53vw;
+    /* Nagłówki mają globalnie text-wrap: balance, który wyrównuje długość
+       wierszy. Makieta jest składana zachłannie, więc tutaj balansowanie
+       wyłączamy, inaczej "na" spada do trzeciego wiersza. */
+    text-wrap: wrap;
+  }
+  .hero-foto:not(.hero-foto--podstrona) .hero-foto__pismo {
+    font-size: 0.703em;
+    /* Dosunięcie do miejsca z makiety; wartości w em, żeby szły za krojem. */
+    position: relative; left: -0.127em; top: 0.367em;
+  }
+  /* Na wąskim ekranie pismo jest mniejsze, więc swasz schodzi płycej:
+     nachodzenie znika od zera. Ujemna wartość dopasowana wcześniej
+     do makiety kładła "apetyt." wprost na ogonie "buduje". */
+  .hero-foto:not(.hero-foto--podstrona) .hero-foto__pismo i + i {
+    margin: 0.05em 0 0 1.541em;
+  }
+  /* Hero podstron nie ma kadru pionowego, więc zostaje poziomy, ale kadr
+     2,6:1 schodził na 390 px do paska 149 px. Przycinamy go do 16:10,
+     czyli 244 px, bez ruszania kompozycji w poziomie. */
+  .hero-foto--podstrona .hero-foto__tlo { aspect-ratio: 16 / 10; object-fit: cover; }
+  /* W wariancie --prawo pusta strefa kadru jest po prawej, czyli temat siedzi
+     po lewej. Kadrowanie od środka ucinało mu bok, więc kotwiczymy do lewej. */
+  .hero-foto--prawo .hero-foto__tlo { object-position: left center; }
+}
 @media (min-width: 1100px) {
   .hero-foto__tresc { position: relative; padding-top: calc(72px + 4.5vw); }
 }
@@ -357,8 +497,10 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
   font-feature-settings: "calt" 0, "clig" 0, "dlig" 0, "liga" 0, "swsh" 0, "cswh" 0;
 }
 .hero-foto__pismo i { font-style: normal; display: block; }
-/* Swasze adelii sięgają pół firetu w dół, stąd luz większy niż w makiecie */
-.hero-foto__pismo i + i { margin: .18em 0 0 1.15em; }
+/* Swasz wyprowadzający z "e" w "buduje" biegnie w prawo i w dół, przez co
+   przy .18em przechodził przez "apetyt.". Mierzone nachodzenie tuszu (nie
+   pudełek) znika dopiero od .4em, więc zostaje .45em z zapasem. */
+.hero-foto__pismo i + i { margin: .45em 0 0 1.15em; }
 
 /* Wariant dla podstron: bez okrągłego przycisku, niższy kadr, nagłówek
    wyśrodkowany w pionie na pustej części zdjęcia. */
@@ -399,6 +541,7 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
   position: absolute; left: 50%; bottom: 9%;
   translate: -50% 0;
   width: 156px; height: 156px; border-radius: 50%;
+  padding: 0;
   display: grid; place-items: center; text-align: center;
   background: var(--c-accent); color: var(--c-text-on-accent);
   border: 1px solid rgba(255, 255, 255, .04);
@@ -407,8 +550,37 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
   will-change: transform;
 }
 .hero-foto__kolo:hover { background: var(--c-accent-hover); }
-@media (max-width: 1099px) {
-  .hero-foto__kolo { position: static; translate: none; margin: 0 auto var(--s-7); }
+/* Poniżej 1100 px magnes nie działa (chodzi tylko za myszą), a samo koło
+   156 px zostaje wtedy plamą zieleni na pustym kremie. Wąski ekran dostaje
+   zwykły przycisk, wyrównany do lewej z kolumną tekstu. */
+/* Koło na wąskim ekranie: wymiary wprost z makiety 65:15177 (86,78 px przy
+   354 px szerokości = 24,515vw, napis 11,944 px = 3,374vw). Blok musi stać
+   ZA regułą bazową .hero-foto__kolo, inaczej przegrywa kolejnością. */
+@media (max-width: 767px) {
+  .hero-foto__kolo {
+    position: relative; z-index: 2; align-self: flex-start;
+    left: auto; bottom: auto; translate: none;
+    width: 24.515vw; height: 24.515vw; min-height: 0;
+    padding: 0; border-radius: 50%;
+    display: grid; place-items: center; text-align: center;
+    font-size: 3.374vw; line-height: 1.28;
+    /* Pudełko nagłówka sięga niżej niż ostatni wiersz, bo pismo jest obrócone
+       i wystaje poza wiersz. Ujemny margines zdejmuje tę nadwyżkę, żeby koło
+       stanęło tam, gdzie w makiecie (248,05 px przy 354 px). */
+    margin: -3.065vw var(--marg) var(--s-6);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1099px) {
+  .hero-foto__kolo {
+    position: static; translate: none;
+    width: auto; height: auto; min-height: 52px;
+    padding: 0 var(--s-6); border-radius: var(--r);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 500;
+    margin: 0 var(--marg) var(--s-7);
+  }
+  .hero-foto__kolo br { display: none; }
 }
 
 /* ——— Pasek konkretów ——————————————————————————————————————— */
@@ -464,6 +636,16 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
   font-family: var(--f-head); font-size: 19px; line-height: 1.35;
   font-weight: 400; letter-spacing: -.01em; color: var(--c-text);
   max-width: 20ch;
+}
+/* Poniżej 620 px cztery wyśrodkowane kolumny zajmowały 869 px na cztery
+   hasła, czyli ekran z okładem prawie pustego kremu. Wąski ekran czyta
+   je jako listę: ikona po lewej, hasło po prawej. */
+@media (max-width: 619px) {
+  .benefity { gap: var(--s-5); }
+  .benefit { flex-direction: row; align-items: center; text-align: left; gap: var(--s-4); }
+  .benefit__ikona { width: 56px; height: 56px; }
+  .benefit__ikona svg { width: 28px; height: 28px; }
+  .benefit__tekst { font-size: 17px; max-width: none; }
 }
 /* Pas przewag jest zwarty: cztery hasła nie utrzymują pełnego --sekcja
    i przy 160 px wisiały w pustce. */
@@ -680,7 +862,10 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
      Przy kadrze po lewej ta sama krawędź stawała pionową kreską w połowie
      bieli i wyglądała na błąd kadrowania.
      `min-height` trzyma kadr wysoki także przy krótszym tekście. */
-  .forpa { min-height: min(88vh, 860px); display: flex; align-items: center; }
+  /* Sekcja stoi na prawie białym tle, tak samo jak sekcja nad nią, więc
+     pełne --sekcja z obu stron zlewało się w jedną pustkę: 160 px z dołu
+     poprzedniej plus 182 px nad nagłówkiem. Tutaj oddech jest krótszy. */
+  .forpa { min-height: min(74vh, 720px); display: flex; align-items: center; }
   .forpa__kadr {
     position: absolute; top: 0; bottom: 0; right: 0; width: 56%;
   }
@@ -688,8 +873,11 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
   .forpa__wrap { width: 100%; }
   .forpa__tekst {
     width: 44%; margin-right: auto;
-    padding: var(--sekcja) 0;
+    padding: calc(var(--sekcja) * .65) 0;
   }
+  /* Sekcja nad Forpą kończy się prawie białą płytą, a Forpa nią zaczyna.
+     Dwa pełne --sekcja stykały się w jedną pustkę bez żadnej krawędzi. */
+  .sekcja:has(+ .forpa) { padding-bottom: calc(var(--sekcja) * .55); }
 }
 
 /* ——— Hero podstron: nagłówek połączony z kadrem ———————————————— */
@@ -727,6 +915,9 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 }
 .kontakt-karta__tel:hover { color: var(--c-accent); }
 .kontakt-karta a { color: var(--c-text); }
+@media (max-width: 619px) {
+  .kontakt-karta p > a { display: inline-block; padding: 8px 0; margin: -6px 0; }
+}
 .kontakt-karta p + p { margin-top: var(--s-2); }
 
 /* ——— Lista definicyjna ——————————————————————————————————————— */
@@ -806,6 +997,12 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 .postep span[data-aktywny] { background: var(--c-text); }
 .postep-opis { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-text-soft); margin-bottom: var(--s-5); }
 .form-nav { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-7); padding-top: var(--s-6); border-top: 1px solid var(--c-line); }
+/* Ten sam problem co w .btn-grupa: dwa przyciski w rzędzie dzieliły się
+   szerokością i "Zamów próbkę opakowania" łamało się na dwa wiersze. */
+@media (max-width: 767px) {
+  .form-nav { flex-direction: column; }
+  .form-nav .btn { width: 100%; }
+}
 
 /* ——— Pas z wezwaniem ————————————————————————————————————————— */
 
@@ -814,6 +1011,9 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
    dominującą płaszczyzną. Kontrasty: tekst 14,16:1, tekst wtórny 5,10:1. */
 .cta-band { background: var(--c-bg-band); }
 .cta-band .wrap { padding-top: var(--sekcja); padding-bottom: var(--sekcja); }
+@media (max-width: 619px) {
+  .cta-band .mala a { display: inline-block; padding: 8px 0; margin: -6px 0; }
+}
 .cta-band h2 { max-width: 22ch; }
 .cta-band ul { list-style: none; margin: var(--s-6) 0 0; padding: 0; }
 
@@ -841,6 +1041,10 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 .foot__gora { display: grid; grid-template-columns: 1fr; gap: var(--s-8); }
 @media (min-width: 900px) { .foot__gora { grid-template-columns: minmax(0, 4fr) repeat(2, minmax(0, 3fr)); gap: var(--s-8); } }
 .foot__logo img { width: 160px; height: auto; }
+@media (max-width: 619px) {
+  .head__logo { position: relative; }
+  .head__logo::after { content: ""; position: absolute; inset: -11px -8px; }
+}
 .foot__opis { margin-top: var(--s-5); font-size: 15px; color: var(--c-text-on-dark-soft); max-width: 40ch; }
 /* Nagłówki kolumn na bieli, nie w krafcie: kraft ciągnął wzrok mocniej niż
    same odnośniki pod nimi, a to tylko etykieta grupy. */
@@ -848,6 +1052,13 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 .foot ul { list-style: none; margin: 0; padding: 0; }
 .foot li + li { margin-top: var(--s-3); }
 .foot a { font-size: 15px; text-decoration: none; color: var(--c-text-on-dark-soft); }
+/* Odsyłacze stopki mają 18 px wysokości i 12 px przerwy, czyli na dotyku
+   sąsiadują za blisko. Pole trafienia rośnie paddingiem, a ujemny margines
+   zdejmuje z powrotem to, co padding dołożyłby do odstępów. */
+@media (max-width: 619px) {
+  .foot li + li { margin-top: var(--s-4); }
+  .foot li a { display: inline-block; padding: 8px 0; margin: -8px 0; }
+}
 .foot a:hover { color: var(--c-text-on-dark); }
 /* Trzy pozycje: nota o prawach do lewej, dane rejestrowe na środek,
    polityka do prawej. Środkowa kolumna jest szeroka, bo adres z NIP-em
@@ -860,6 +1071,9 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
   text-align: center;
 }
 .foot__dol a { font-size: 13px; color: var(--c-text-on-dark-soft); }
+@media (max-width: 619px) {
+  .foot__dol a { display: inline-block; padding: 9px 0; margin: -9px 0; }
+}
 .foot__dol a:hover { color: var(--c-text-on-dark); }
 @media (min-width: 900px) {
   .foot__dol {
@@ -1022,6 +1236,13 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 
 /* ——— Siatka kart: warianty liczby kolumn ——————————————————————— */
 
+/* Dwie kolumny po 167 px to 103 px na tekst po odjęciu padding. "Buduje
+   rozpoznawalność lokalu." rozjeżdżało się wtedy na pięć wierszy i dotykało
+   krawędzi karty. Na wąskim ekranie karty idą jedna pod drugą. */
+@media (max-width: 619px) {
+  .karty--3 { grid-template-columns: minmax(0, 1fr); }
+  .karty--3 .karta--tekst { padding: var(--s-5); }
+}
 @media (min-width: 700px)  { .karty--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1000px) { .karty--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
@@ -1203,6 +1424,10 @@ hr.linia { border: 0; border-top: 1px solid var(--c-line); margin: 0; }
 .okruszki { font-size: 13px; color: var(--c-text-soft); display: flex; flex-wrap: wrap; gap: var(--s-2); }
 .okruszki a { text-decoration: none; color: inherit; }
 .okruszki a:hover { color: var(--c-text); }
+@media (max-width: 619px) {
+  .okruszki { gap: var(--s-2) var(--s-3); }
+  .okruszki a { display: inline-block; padding: 7px 0; margin: -7px 0; }
+}
 
 .produkt-glowa { display: grid; grid-template-columns: 1fr; gap: var(--s-7); align-items: start; }
 @media (min-width: 1000px) {

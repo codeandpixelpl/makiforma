@@ -34,7 +34,7 @@
           </ul>
         </details>
         <a class="btn btn--maly head__cta" href="wycena.html">Wyceń projekt</a>
-        <button class="burger" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+        <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Otwórz menu"><span class="burger__ikona" aria-hidden="true"><i></i><i></i><i></i></span></button>
       </div>
     </div>
     <div class="menu" id="menu">
@@ -48,6 +48,11 @@
         </ul>
         <a class="btn btn--blok" href="wycena.html">Wyceń projekt</a>
         <p class="mala">+48 123 456 789 · kontakt@makiforma.pl</p>
+        <nav class="menu__jezyki" aria-label="Język strony">
+          <a href="#" aria-current="page">Polski</a>
+          <a href="#">English</a>
+          <a href="#">Deutsch</a>
+        </nav>
       </div>
     </div>
   </header>
@@ -58,15 +63,21 @@
   <!-- 1 · Hero ————————————————————————————————————————————— -->
   
   <section class="hero-foto" data-magnes-obszar>
-    <img class="hero-foto__tlo" src="assets/img/hero-moku-galaz.webp"
-         srcset="assets/img/hero-moku-galaz-1000.webp 1000w, assets/img/hero-moku-galaz.webp 2200w"
-         sizes="100vw" width="2200" height="1049" fetchpriority="high"
-         alt="Otwarte pudełko MOKU z rolkami sushi, leżące na omszałej gałęzi bonsai">
+    <picture>
+      
+      <source media="(min-width: 768px)"
+              srcset="assets/img/hero-moku-galaz-1000.webp 1000w, assets/img/hero-moku-galaz.webp 2200w"
+              sizes="100vw" width="2200" height="1049">
+      <img class="hero-foto__tlo" src="assets/img/hero-moku-galaz-pion.webp"
+           srcset="assets/img/hero-moku-galaz-pion-800.webp 800w, assets/img/hero-moku-galaz-pion.webp 1200w"
+           sizes="100vw" width="1200" height="1519" fetchpriority="high"
+           alt="Otwarte pudełko MOKU z rolkami sushi, leżące na omszałej gałęzi bonsai">
+    </picture>
     <div class="wrap hero-foto__tresc">
-      <h1 class="hero-foto__naglowek">Dobre sushi <b>zasługuje na&nbsp;opakowanie</b>,<br>
+      <h1 class="hero-foto__naglowek">Dobre sushi <b>zasługuje na opakowanie</b>,<br>
         które <span class="hero-foto__pismo"><i>buduje</i><i>apetyt.</i></span></h1>
     </div>
-    <a class="hero-foto__kolo" href="wycena.html" data-magnes>Wyceń<br>opakowanie</a>
+    <a class="hero-foto__kolo btn" href="wycena.html" data-magnes>Wyceń <br>opakowanie</a>
   </section>
 
   <!-- 2 · Najważniejsze przewagi ——————————————————————————— -->

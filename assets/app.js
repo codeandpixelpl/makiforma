@@ -4,13 +4,42 @@
   var menu = document.getElementById('menu');
 
   if (burger && menu) {
+    /* Menu jest warstwą na całą wysokość, więc musi się zamykać wszędzie tam,
+       gdzie użytkownik tego oczekuje: przyciskiem, wybranym odsyłaczem,
+       klawiszem Escape i po przejściu na szeroki układ. Przy otwartym menu
+       tło się nie przewija (atrybut na <body>). */
+    var przelacz = function (otworz) {
+      if (otworz) {
+        menu.setAttribute('data-otwarte', '');
+        document.body.setAttribute('data-menu', '');
+      } else {
+        menu.removeAttribute('data-otwarte');
+        document.body.removeAttribute('data-menu');
+      }
+      burger.setAttribute('aria-expanded', String(otworz));
+      /* Napis zniknął z przycisku (jest ikoną), więc stan niesie aria-label. */
+      burger.setAttribute('aria-label', otworz ? 'Zamknij menu' : 'Otwórz menu');
+    };
+
     burger.addEventListener('click', function () {
-      var otwarte = menu.hasAttribute('data-otwarte');
-      if (otwarte) { menu.removeAttribute('data-otwarte'); }
-      else { menu.setAttribute('data-otwarte', ''); }
-      burger.setAttribute('aria-expanded', String(!otwarte));
-      burger.textContent = otwarte ? 'Menu' : 'Zamknij';
+      przelacz(!menu.hasAttribute('data-otwarte'));
     });
+
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) { przelacz(false); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.hasAttribute('data-otwarte')) {
+        przelacz(false);
+        burger.focus();
+      }
+    });
+
+    var szerokie = window.matchMedia('(min-width: 1080px)');
+    var naZmiane = function (e) { if (e.matches) { przelacz(false); } };
+    if (szerokie.addEventListener) { szerokie.addEventListener('change', naZmiane); }
+    else { szerokie.addListener(naZmiane); }
   }
 
   /* Wysłanie formularza wyceny: formularz znika, wchodzi potwierdzenie */
@@ -224,7 +253,7 @@
   var kolo = document.querySelector('[data-magnes]');
   var obszar = document.querySelector('[data-magnes-obszar]');
   if (kolo && obszar &&
-      window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+      window.matchMedia('(hover: hover) and (min-width: 1100px) and (prefers-reduced-motion: no-preference)').matches) {
     var cel = { x: 0, y: 0 };
     var poz = { x: 0, y: 0 };
     var dom = null;   /* środek przycisku w spoczynku, liczony przy pierwszym ruchu */
